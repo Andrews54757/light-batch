@@ -25,4 +25,6 @@ However, it does work. How? Because of optimization/culling.
 The light engine can somehow take the tasks given to it per run, and cull it.
 IE, if you are moving lots of blocks, instead of propagating from every block to every block adjacent (flood fill algorithm), it can cull the extra unecessary updates.
 
-However, not much is known exactly how this works. It probably has something to do with the `DynamicGraphMinFixedPoint.java` (yarn `LevelPropagator.java` code in the game.
+As a result, the more tasks the light engine processes per run, the processing less time they will take per task, thus, allowing you to give the light engine more tasks overall. The lightbatch mod allows you to make use of this by doing exactly that
+
+However, not much is known exactly how this culling mechanism works. It probably has something to do with the `DynamicGraphMinFixedPoint.java` (yarn `LevelPropagator.java` code in the game.

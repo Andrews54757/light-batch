@@ -3,11 +3,12 @@ package net.andrews.lightbatch;
 import carpet.CarpetExtension;
 import carpet.CarpetServer;
 import carpet.utils.Messenger;
-import net.minecraft.command.arguments.DimensionArgumentType;
+import net.minecraft.command.argument.DimensionArgumentType;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.world.ServerLightingProvider;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.world.dimension.DimensionType;
 
 import static net.minecraft.server.command.CommandManager.argument;
@@ -33,20 +34,28 @@ public class LightBatchExtension implements CarpetExtension {
 
   private static int getBatchSizeCommand(CommandContext<ServerCommandSource> ctx) {
     
-    MinecraftServer server = ctx.getSource().getMinecraftServer();
-    DimensionType dimension = DimensionArgumentType.getDimensionArgument(ctx, "dimension");
-    ServerLightingProvider lightProvider = server.getWorld(dimension).getChunkManager().getLightingProvider();
+    try {
+    ServerWorld dimension = DimensionArgumentType.getDimensionArgument(ctx, "dimension");
+    ServerLightingProvider lightProvider = dimension.getChunkManager().getLightingProvider();
     int batchSize = ((ServerLightingProviderInterface) lightProvider).getTaskBatchSize();
     Messenger.m(ctx.getSource(), new Object[] { "w Batch Size for " + dimension.toString() + " is " + batchSize});
+    } catch (Exception e) {
+      Messenger.m(ctx.getSource(), new Object[] { "w An error has occured"});
+    }
+    
     return 1;
   }
 
   private static int setBatchSizeCommand(CommandContext<ServerCommandSource> ctx) {
-    MinecraftServer server = ctx.getSource().getMinecraftServer();
-    DimensionType dimension = DimensionArgumentType.getDimensionArgument(ctx, "dimension");
+    try {
+    ServerWorld dimension = DimensionArgumentType.getDimensionArgument(ctx, "dimension");
     int batchSize = getInteger(ctx, "batch size");
-    server.getWorld(dimension).getChunkManager().getLightingProvider().setTaskBatchSize(batchSize);
+    dimension.getChunkManager().getLightingProvider().setTaskBatchSize(batchSize);
     Messenger.m(ctx.getSource(), new Object[] { "w Batch Size for " + dimension.toString() + " set to " + batchSize});
+    } catch (Exception e) {
+      Messenger.m(ctx.getSource(), new Object[] { "w An error has occured"});
+    }
+    
     return 1;
   }
 

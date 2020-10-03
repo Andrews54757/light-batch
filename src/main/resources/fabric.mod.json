@@ -31,8 +31,5 @@
     "fabricloader": ">=0.7.4",
     "minecraft": "1.16.x",
     "carpet": ">=1.4.9"
-  },
-  "suggests": {
-    "flamingo": "*"
   }
 }

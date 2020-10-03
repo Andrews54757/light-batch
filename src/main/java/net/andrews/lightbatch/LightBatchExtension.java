@@ -38,7 +38,7 @@ public class LightBatchExtension implements CarpetExtension {
     ServerWorld dimension = DimensionArgumentType.getDimensionArgument(ctx, "dimension");
     ServerLightingProvider lightProvider = dimension.getChunkManager().getLightingProvider();
     int batchSize = ((ServerLightingProviderInterface) lightProvider).getTaskBatchSize();
-    Messenger.m(ctx.getSource(), new Object[] { "w Batch Size for " + dimension.toString() + " is " + batchSize});
+    Messenger.m(ctx.getSource(), new Object[] { "w Batch Size for " + dimension.getDimension().toString() + " is " + batchSize});
     } catch (Exception e) {
       Messenger.m(ctx.getSource(), new Object[] { "w An error has occured"});
     }
@@ -51,7 +51,7 @@ public class LightBatchExtension implements CarpetExtension {
     ServerWorld dimension = DimensionArgumentType.getDimensionArgument(ctx, "dimension");
     int batchSize = getInteger(ctx, "batch size");
     dimension.getChunkManager().getLightingProvider().setTaskBatchSize(batchSize);
-    Messenger.m(ctx.getSource(), new Object[] { "w Batch Size for " + dimension.toString() + " set to " + batchSize});
+    Messenger.m(ctx.getSource(), new Object[] { "w Batch Size for " + dimension.getDimension().toString() + " set to " + batchSize});
     } catch (Exception e) {
       Messenger.m(ctx.getSource(), new Object[] { "w An error has occured"});
     }

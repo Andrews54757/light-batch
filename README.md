@@ -1,3 +1,8 @@
+# UPDATE:
+As of Jan 13 2021, [fabric-carpet#654](https://github.com/gnembon/fabric-carpet/pull/654) has been sucessfully merged into carpetmod. Since the functionality of this mod has been added to carpet, this mod is now archived and will no longer be supported.
+
+Still, those who may want to keep using this mod may do so even with an updated carpet mod (they are not incompatible).
+
 # LightBatch
 
 Dumb mod to test different task batch sizes for light engine. Adds /lightbatch command. Higher batch numbers seem to let light engine keep up.

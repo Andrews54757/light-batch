@@ -5,7 +5,11 @@ Still, those who may want to keep using this mod may do so even with an updated 
 
 # LightBatch
 
-Dumb mod to test different task batch sizes for light engine. Adds /lightbatch command. Higher batch numbers seem to let light engine keep up.
+Dumb mod to test different task batch sizes for light engine. Adds /light command. Higher batch numbers seem to let light engine keep up.
+
+Available commands
+* `/light batch [get|set] [dimension] [value]` - Gets or sets the batch size.
+* `/light status` - Tells you the amount of light tasks on each dimension.
 
 ## Suspected Mechanism For Why It Works
 

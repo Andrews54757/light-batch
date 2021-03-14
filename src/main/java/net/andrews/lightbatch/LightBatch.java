@@ -9,6 +9,6 @@ public class LightBatch implements ModInitializer {
 		// However, some things (like resources) may still be uninitialized.
 		// Proceed with mild caution.
 
-		
+		LightBatchMod.init();
 	}
 }

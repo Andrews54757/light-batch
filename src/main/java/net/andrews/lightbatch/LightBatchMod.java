@@ -51,28 +51,24 @@ public class LightBatchMod {
           .getLightingProvider();
       SimpleTaskQueueInterface queue = (SimpleTaskQueueInterface) lightProvider.getProcessor().queue;
       int backed = 0;
-      try {
-        ThreadedAnvilChunkStorageInterface storage = (ThreadedAnvilChunkStorageInterface) serverWorld
-            .getChunkManager().threadedAnvilChunkStorage;
-        ChunkTaskPrioritySystemInterface system = (ChunkTaskPrioritySystemInterface) storage.getTaskPrioritySystem();
-        LevelPrioritizedQueue<? extends Function<MessageListener<Unit>, ?>> lvlqueue = null;
-        for (LevelPrioritizedQueue<? extends Function<MessageListener<Unit>, ?>> lvlq : system.getQueues().values()) {
-          if (lvlq.toString().indexOf("light_queue") != -1) {
-            lvlqueue = lvlq;
-            break;
-          }
-        }
 
-        if (lvlqueue != null) {
-          backed = ((LevelPrioritizedQueueInterface) lvlqueue).getQueuedCount();
+      ThreadedAnvilChunkStorageInterface storage = (ThreadedAnvilChunkStorageInterface) serverWorld
+          .getChunkManager().threadedAnvilChunkStorage;
+      ChunkTaskPrioritySystemInterface system = (ChunkTaskPrioritySystemInterface) storage.getTaskPrioritySystem();
+      LevelPrioritizedQueue<? extends Function<MessageListener<Unit>, ?>> lvlqueue = null;
+      for (LevelPrioritizedQueue<? extends Function<MessageListener<Unit>, ?>> lvlq : system.getQueues().values()) {
+        if (lvlq.toString().indexOf("light_queue") != -1) {
+          lvlqueue = lvlq;
+          break;
         }
-      } catch (Exception e) {
-        System.out.println(e);
       }
 
-      int size = queue.getQueue().size();
-      sendMessage(ctx.getSource(), serverWorld.getRegistryKey().getValue().getPath() + ": " + size
-          + (backed != 0 ? ("/" + (backed + size)) : ""));
+      if (lvlqueue != null) {
+        backed = ((LevelPrioritizedQueueInterface) lvlqueue).getQueuedCount();
+      }
+
+      sendMessage(ctx.getSource(), serverWorld.getRegistryKey().getValue().getPath() + ": "
+          + lightProvider.getCurrentTasks() + "/" + queue.getQueue().size() + "/" + backed);
     }
     return 1;
   }
